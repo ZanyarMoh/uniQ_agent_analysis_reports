@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comprehensive B14g Bitcoin Merge Staking Platform Analysis</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background-color: #f9f9f9;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    header {
+      background: linear-gradient(135deg, #0a6ebd, #1c92d2);
+      color: white;
+      padding: 30px 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    h1 {
+      margin: 0;
+      font-size: 2.5em;
+    }
+    h2 {
+      color: #0a6ebd;
+      border-bottom: 2px solid #e1e1e1;
+      padding-bottom: 10px;
+      margin-top: 40px;
+    }
+    h3 {
+      color: #1c92d2;
+      margin-top: 25px;
+    }
+    .summary-card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    .metric-card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease;
+    }
+    .metric-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .metric-title {
+      font-size: 0.9em;
+      color: #666;
+      margin-bottom: 5px;
+    }
+    .metric-value {
+      font-size: 1.8em;
+      font-weight: bold;
+      color: #0a6ebd;
+      margin-bottom: 5px;
+    }
+    .positive-change {
+      color: #2ecc71;
+      font-weight: bold;
+    }
+    .negative-change {
+      color: #e74c3c;
+      font-weight: bold;
+    }
+    .metric-date {
+      font-size: 0.8em;
+      color: #999;
+    }
+    .chart-container {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 30px 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .chart-title {
+      font-size: 1.2em;
+      color: #0a6ebd;
+      margin-bottom: 15px;
+    }
+    .chart-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+      border: 1px solid #eaeaea;
+      margin: 10px 0;
+    }
+    .asset-distribution {
+      display: block;
+      align-items: center;
+      gap: 30px;
+      margin: 30px 0;
+    }
+    .distribution-chart {
+      width: 100%;
+    }
+    .distribution-details {
+      width: 50%;
+    }
+    .asset-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .asset-color {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .btc-color {
+      background-color: #f7931a;
+    }
+    .core-color {
+      background-color: #1c92d2;
+    }
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 20px;
+      color: #777;
+      font-size: 0.9em;
+    }
+    .conclusion {
+      background: linear-gradient(135deg, #f6f9fc, #eef3f8);
+      padding: 25px;
+      border-radius: 8px;
+      margin: 40px 0;
+      border-left: 5px solid #0a6ebd;
+    }
+    .tab-section {
+      background: white;
+      border-radius: 8px;
+      padding: 25px;
+      margin: 30px 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .tab-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .tab-icon {
+      background-color: #0a6ebd;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      margin-right: 15px;
+    }
+    .process-flow {
+      display: flex;
+      justify-content: space-between;
+      margin: 30px 0;
+      flex-wrap: wrap;
+    }
+    .process-step {
+      flex: 1;
+      min-width: 200px;
+      margin: 10px;
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      position: relative;
+      text-align: center;
+    }
+    .process-step::after {
+      content: "→";
+      position: absolute;
+      right: -15px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.5em;
+      color: #0a6ebd;
+    }
+    .process-step:last-child::after {
+      content: "";
+    }
+    .key-features {
+      margin: 20px 0;
+    }
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 15px;
+    }
+    .feature-icon {
+      color: #0a6ebd;
+      margin-right: 10px;
+      font-size: 1.2em;
+    }
+    .user-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin: 30px 0;
+    }
+    .user-metric-card {
+      flex: 1;
+      min-width: 220px;
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .user-metric-value {
+      font-size: 2em;
+      font-weight: bold;
+      color: #0a6ebd;
+      margin: 10px 0;
+    }
+    .user-metric-label {
+      color: #666;
+      font-size: 0.9em;
+    }
+    .tab-nav {
+      display: flex;
+      overflow-x: auto;
+      margin: 0 -20px 30px;
+      padding: 0 20px;
+      scrollbar-width: none;
+    }
+    .tab-nav::-webkit-scrollbar {
+      display: none;
+    }
+    .tab-btn {
+      padding: 12px 24px;
+      background: #f1f5f9;
+      border: none;
+      border-radius: 8px;
+      margin-right: 15px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #64748b;
+      white-space: nowrap;
+    }
+    .tab-btn.active {
+      background: #0a6ebd;
+      color: white;
+    }
+    .insight-box {
+      background-color: #e8f4fd;
+      border-left: 4px solid #0a6ebd;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .highlight {
+      background-color: #fffde7;
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+    .trend-indicator {
+      font-size: 1.2em;
+      margin-right: 5px;
+    }
+    .trend-up {
+      color: #2ecc71;
+    }
+    .trend-down {
+      color: #e74c3c;
+    }
+	
+	@media (max-width: 768px) {
+		.tab-nav{
+			display: block;
+			margin-bottom: 10px
+		}
+		.tab-btn {
+			margin-top: 15px;
+			padding: 0;
+		}
+	}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Comprehensive B14g Bitcoin Merge Staking Platform Analysis</h1>
+      <p>Based on Flipside Crypto dashboard data • Generated on March 21, 2024</p>
+    </header>
+
+    <div class="tab-nav">
+      <a class="tab-btn" href="#overview">Overview</a>
+      <a class="tab-btn" href="#marketplace">Marketplace</a>
+      <a class="tab-btn" href="#vault">dualCORE Vault</a>
+      <a class="tab-btn" href="#users">Users</a>
+	  <a class="tab-btn" href="#recommendations">Recommendations</a>
+    </div>
+
+    <div class="summary-card">
+      <h2>Platform Overview</h2>
+      <p>B14g is a Bitcoin Merge Staking platform built on Core DAO that unlocks the full potential of BTC holdings. The platform integrates Bitcoin's unparalleled economic strength with protocol-native tokens, creating a sustainable staking environment that benefits both users and protocols.</p>
+      
+      <h3>Key Principles</h3>
+      <ul>
+        <li><strong>Security & Sustainability:</strong> Leverages Bitcoin's deep liquidity and robust security while allowing protocols to secure their networks without over-inflating their native token supply.</li>
+        <li><strong>Win-Win Model:</strong> BTC stakers earn additional rewards while protocols benefit from enhanced security and balanced token economics.</li>
+        <li><strong>Lowered Barriers:</strong> The Merge Marketplace enables collaboration between BTC holders and native token stakers, unlocking higher yield tiers and driving ecosystem growth.</li>
+      </ul>
+    </div>
+
+    <!-- OVERVIEW TAB CONTENT -->
+    <div class="tab-section" id="overview">
+      <div class="tab-header">
+        <div class="tab-icon">📊</div>
+        <h2 style="margin: 0;">Overview Tab Analysis</h2>
+      </div>
+
+      <h3>Key Performance Indicators</h3>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-title">Total Value Locked (TVL)</div>
+          <div class="metric-value">$110.2M</div>
+          <div class="metric-date">Updated 2 days ago</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-title">Total Transactions</div>
+          <div class="metric-value">26.59K</div>
+          <div class="metric-date">Updated 2 days ago</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-title">Total Stakers</div>
+          <div class="metric-value">4.02K</div>
+          <div class="metric-date">Updated 2 days ago</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-title">Total Claimed Rewards</div>
+          <div class="metric-value">416.95K Core</div>
+          <div class="metric-date">Updated 2 days ago</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-title">Total Rewards</div>
+          <div class="metric-value">456.79K Core</div>
+          <div class="metric-date">Updated 2 days ago</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-title">Average Daily Users</div>
+          <div class="metric-value">126</div>
+          <div class="metric-date">Updated 2 days ago</div>
+        </div>
+      </div>
+
+      <h3>Growth Analysis</h3>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-title">TVL 1-Day Change</div>
+          <div class="metric-value positive-change">+2.21%</div>
+          <div class="metric-date">Updated 2 days ago</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-title">TVL 7-Day Change</div>
+          <div class="metric-value positive-change">+102.94%</div>
+          <div class="metric-date">Updated 2 days ago</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-title">TVL 30-Day Change</div>
+          <div class="metric-value positive-change">+8954.34%</div>
+          <div class="metric-date">Updated 2 days ago</div>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <div class="chart-title">TVL Growth Over Time</div>
+        <p>The TVL chart shows exceptional growth trajectory, particularly from February 2025 to March 2025, with a sharp upward trend reaching $110.2M. This significant increase demonstrates strong market adoption and growing confidence in the platform.</p>
+        
+        <!-- EXAMPLE OF CHART IMAGE IMPLEMENTATION -->
+        <img src="https://res.cloudinary.com/ebrahimyousefi/image/upload/v1742574998/lswtada1xlz6ncxfu0zy.jpg" alt="TVL Growth Over Time Chart" class="chart-image" id="overview-tvl-chart">
+        
+        <div class="insight-box">
+          <p><strong>Key Insight:</strong> The exponential growth pattern (8954.34% over 30 days) indicates a critical inflection point in market adoption, likely triggered by increased awareness and proven platform reliability.</p>
+        </div>
+      </div>
+
+      <h3>Asset Distribution</h3>
+      <div class="asset-distribution">
+        <div class="distribution-chart">
+          <!-- Chart Placeholder -->
+          <div id="overview-asset-distribution-chart">
+			 <img src="https://res.cloudinary.com/ebrahimyousefi/image/upload/v1742574366/chart_1_ghyvuu.jpg" alt="Asset Distribution Chart" class="chart-image" id="overview-tvl-chart">
+          </div>
+        </div>
+        <div class="distribution-details">
+          <h3>Staked Assets Breakdown</h3>
+          <div class="asset-item">
+            <div class="asset-color core-color"></div>
+            <div>
+              <strong>CORE Token:</strong> 14.09M tokens staked
+            </div>
+          </div>
+          <div class="asset-item">
+            <div class="asset-color btc-color"></div>
+            <div>
+              <strong>BTC:</strong> 1.233K BTC staked
+            </div>
+          </div>
+          <p>The significant amount of BTC staked (1,233 BTC, equivalent to approximately $85-90K at current prices) demonstrates strong confidence from Bitcoin holders in b14g's staking solution.</p>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <div class="chart-title">TVL Breakdown by Asset Over Time</div>
+        <p>The asset breakdown chart shows that while both BTC and CORE have grown over time, BTC has seen particularly strong growth in March 2025, becoming the dominant asset in the TVL. This indicates increasing adoption from Bitcoin holders looking to make their BTC productive.</p>
+        
+        <!-- Chart Placeholder -->
+        <div id="overview-tvl-breakdown-chart">
+			<img src="https://res.cloudinary.com/ebrahimyousefi/image/upload/v1742393660/chart_ldj5c6.jpg" alt="TVL Breakdown by Asset Over Time Chart" class="chart-image" id="overview-tvl-chart">
+        </div>
+        
+        <div class="insight-box">
+          <p><strong>Key Insight:</strong> The increasing ratio of BTC to CORE in the TVL suggests that the platform is successfully attracting Bitcoin holders, which is crucial for long-term sustainability of the dual-staking model.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MARKETPLACE TAB CONTENT -->
+    <div class="tab-section"  id="marketplace">
+      <div class="tab-header">
+        <div class="tab-icon">🔄</div>
+        <h2 style="margin: 0;">Marketplace Tab Analysis</h2>
+      </div>
+
+      <p>The Marketplace tab reflects the core functionality of b14g's platform, where BTC holders and CORE token holders can collaborate for dual-staking opportunities.</p>
+
+      <h3>Key Marketplace Metrics</h3>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-title">Active Orders</div>
+          <div class="metric-value">104</div>
+          <div class="metric-date">Updated 2 days ago</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-title">Current Validators</div>
+          <div class="metric-value">20</div>
+          <div class="metric-date">Updated 2 days ago</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-title">Average CORE Staked per Transaction</div>
+          <div class="metric-value">122.4</div>
+          <div class="metric-date">Updated 2 days ago</div>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <div class="chart-title">BTC Staked: Breakdown by Validators</div>
+        <p>The chart shows an uneven distribution of BTC staking across validators, with a few validators capturing significantly larger shares. The top validators (especially the first 5-6) hold a disproportionate amount of the staked BTC.</p>
+        
+        <!-- Chart Placeholder -->
+        <div id="marketplace-btc-validators-chart">
+          <img src="https://res.cloudinary.com/ebrahimyousefi/image/upload/v1742575157/chart_3_s4yfsm.jpg" alt="BTC Staked Breakdown by Validators Chart" class="chart-image">
+        </div>
+        
+        <div class="insight-box">
+          <p><strong>Key Insight:</strong> The concentration of BTC in top validators presents both a challenge (centralization risk) and an opportunity (targeted validator partnerships) for the platform's future development.</p>
+        </div>
+      </div>
+
+      <!-- Additional Marketplace charts would follow the same pattern -->
+    </div>
+
+    <!-- DUALCORE VAULT TAB CONTENT -->
+    <div class="tab-section"  id="vault">
+      <div class="tab-header">
+        <div class="tab-icon">🔐</div>
+        <h2 style="margin: 0;">dualCORE Vault Tab Analysis</h2>
+      </div>
+
+      <p>The dualCORE Vault represents an automated yield optimization solution for CORE token holders, offering simplified access to dual-staking rewards without manual order management.</p>
+
+      <h3>Key dualCORE Vault Metrics</h3>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-title">Total Deposited</div>
+          <div class="metric-value">$5.59M - 12.46M Core</div>
+          <div class="metric-date">Updated 2 days ago</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-title">dualCORE Supply</div>
+          <div class="metric-value">11.55M dualCORE</div>
+          <div class="metric-date">Updated 2 days ago</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-title">APY</div>
+          <div class="metric-value positive-change">40.2%</div>
+          <div class="metric-date">Updated 2 days ago</div>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <div class="chart-title">dualCORE Vault Performance</div>
+        <p>The performance chart shows both Historical APY (blue bars) and dualCORE Conversion Rate (blue line). The conversion rate has steadily increased over time to approximately 1.05, indicating that each dualCORE token is now worth 1.05 CORE tokens due to compounded rewards.</p>
+        
+        <!-- Chart Placeholder -->
+        <div id="dualcore-performance-chart">
+			<img src="https://res.cloudinary.com/ebrahimyousefi/image/upload/v1742575228/chart_4_jarzib.jpg" alt="dualCORE Vault Performance Chart" class="chart-image">
+        </div>
+        
+        <div class="insight-box">
+          <p><strong>Key Insight:</strong> The consistent upward trend in the dualCORE Conversion Rate demonstrates the effectiveness of the auto-compounding mechanism, providing tangible evidence of value accrual for vault users.</p>
+        </div>
+      </div>
+
+      <!-- Additional dualCORE Vault charts would follow the same pattern -->
+    </div>
+
+    <!-- USERS TAB CONTENT -->
+    <div class="tab-section"  id="users">
+      <div class="tab-header">
+        <div class="tab-icon">👥</div>
+        <h2 style="margin: 0;">Users Tab Analysis</h2>
+      </div>
+
+      <p>The Users tab provides critical insights into user demographics, behavior patterns, and engagement metrics across the b14g platform.</p>
+
+      <h3>User Growth and Change</h3>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-title">Users 1D Change</div>
+          <div class="metric-value negative-change">-10.51%</div>
+          <div class="metric-date">Updated 2 days ago</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-title">Users 7D Change</div>
+          <div class="metric-value negative-change">-12.96%</div>
+          <div class="metric-date">Updated 2 days ago</div>
+        </div>
+        
+        <div class="metric-card">
+          <div class="metric-title">Users 30D Change</div>
+          <div class="metric-value positive-change">+214.31%</div>
+          <div class="metric-date">Updated 2 days ago</div>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <p><strong>Key Insight:</strong> The contrast between short-term user decline (-10.51% 1D, -12.96% 7D) and strong long-term growth (+214.31% 30D) suggests a normal consolidation phase following a major growth spike in early March.</p>
+      </div>
+
+      <div class="chart-container">
+        <div class="chart-title">Number of Users Interacted with Platform Over Time</div>
+        <p>The user interaction chart shows modest activity until February, followed by a significant spike in user interactions in early-to-mid March. The platform has maintained higher user activity levels since this spike, though with some normalization.</p>
+        
+        <!-- Chart Placeholder -->
+        <div id="users-interaction-chart">
+          <img src="https://res.cloudinary.com/ebrahimyousefi/image/upload/v1742575286/chart_5_r8wyiv.jpg" alt="Number of Users Interacted with Platform Chart" class="chart-image">
+        </div>
+      </div>
+
+      <!-- Additional Users tab charts would follow the same pattern -->
+    </div>
+
+    <div class="conclusion"  id="recommendations">
+      <h2>Key Insights & Recommendations</h2>
+      
+      <h3>Strengths</h3>
+      <ul>
+        <li><strong>Exceptional Growth:</strong> 8954.34% increase in TVL over 30 days indicates strong market demand and confidence in the platform.</li>
+        <li><strong>Innovative Solution:</strong> The Merge Marketplace and dualCORE Vault solve real capital efficiency problems for BTC and CORE holders.</li>
+        <li><strong>Solid User Base:</strong> With over 4,000 stakers and 26.59K transactions, the platform has established good initial traction.</li>
+        <li><strong>Reward Efficiency:</strong> High claimed rewards ratio (416.95K out of 456.79K total rewards) suggests an engaged user base actively managing their stakes.</li>
+      </ul>
+      
+      <h3>Opportunities</h3>
+      <ul>
+        <li><strong>User Engagement:</strong> Average daily users (126) relative to total stakers (4.02K) suggests potential for increased regular engagement.</li>
+        <li><strong>dualCORE Expansion:</strong> The liquid staking token presents opportunities for integration with other DeFi protocols in the Core ecosystem.</li>
+        <li><strong>Marketplace Optimization:</strong> Further refinement of order matching algorithms could improve capital efficiency and yield optimization.</li>
+        <li><strong>Education Initiatives:</strong> Given the innovative "merge staking" concept, educational content could help onboard users who are familiar with traditional staking but new to this model.</li>
+      </ul>
+      
+      <h3>Recommendations</h3>
+      <ul>
+        <li><strong>Cross-feature Integration:</strong> Strengthen connections between the Marketplace and dualCORE Vault to create a more seamless user experience.</li>
+        <li><strong>Reward Optimization:</strong> Implement community rewards programs to increase daily active users.</li>
+        <li><strong>User Segmentation Strategy:</strong> Develop tailored experiences for different user segments (BTC-focused vs. CORE-focused) to better address their specific needs.</li>
+        <li><strong>Analytics Enhancement:</strong> Create analytics tools for users to better track their staking performance and rewards across all platform features.</li>
+        <li><strong>Ecosystem Expansion:</strong> Explore partnerships with other DeFi protocols to expand marketplace offerings and dualCORE utility.</li>
+      </ul>
+    </div>
+
+    <footer>
+      <p>This analysis is based on data from Flipside Crypto dashboard: <a target="_blank" href="https://flipsidecrypto.xyz/Zanyar_98/b14g-bitcoin-merge-staking-p1uSkG">b14g Bitcoin Merge Staking</a></p>
+      <p>Data last updated approximately 2 days ago. This report is for informational purposes only and does not constitute financial advice.</p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dualCORE Token Performance Analysis</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 20px;
+    }
+    
+    h1, h2, h3 {
+      color: #3498db;
+    }
+    
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    
+    .summary-card {
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      padding: 20px;
+      border-left: 4px solid #3498db;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .summary-card h3 {
+      margin-top: 0;
+      font-size: 16px;
+      color: #666;
+    }
+    
+    .summary-card p {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 10px 0 0;
+      color: #333;
+    }
+    
+    .summary-card .change {
+      font-size: 14px;
+      margin-top: 5px;
+    }
+    
+    .positive {
+      color: #27ae60;
+    }
+    
+    .negative {
+      color: #e74c3c;
+    }
+    
+    .section {
+      margin-bottom: 40px;
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 25px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .chart-container {
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .chart-placeholder {
+      height: 300px;
+      border: none;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 15px;
+      background-color: transparent;
+      color: #3498db;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .chart-placeholder h4 {
+      margin: 0;
+      padding: 10px;
+      font-size: 18px;
+      color: #3498db;
+    }
+    
+    .chart-placeholder p {
+      margin: 0;
+      padding: 0 20px;
+      font-size: 14px;
+      color: #7f8c8d;
+    }
+    
+    .chart-placeholder img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      z-index: 1;
+    }
+    
+    .placeholder-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: transparent;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 0;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    
+    th, td {
+      padding: 12px;
+      text-align: left;
+    }
+    
+    th {
+      background-color: #3498db;
+      color: white;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    
+    .highlight {
+      background-color: #e8f4fc;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+      border-left: 4px solid #3498db;
+    }
+    
+    .conclusion {
+      background-color: #f0f7fb;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+      border-left: 4px solid #3498db;
+    }
+    
+    .disclaimer {
+      font-size: 12px;
+      color: #777;
+      margin-top: 30px;
+      padding-top: 15px;
+      border-top: 1px solid #ddd;
+    }
+    
+    .two-charts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    
+    @media (max-width: 768px) {
+      .two-charts {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .chart-instructions {
+      background-color: #f1f9fe;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      margin-top: 10px;
+      border-left: 3px solid #3498db;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>dualCORE Token Performance Analysis</h1>
+    <p>Analysis report based on Flipside Crypto dashboard data</p>
+    <p>Report generated: <span id="current-date"></span></p>
+  </div>
+  
+  <div class="section">
+    <h2>Executive Summary</h2>
+    <p>dualCORE is the first liquid dual-staking token built on Core chain. Users deposit CORE tokens into the dualCORE vault, which are automatically staked into the most profitable orders on b14g Merge Marketplace. In return, users receive dualCORE tokens, representing staked CORE plus generated rewards.</p>
+    
+    <div class="summary-grid">
+      <div class="summary-card">
+        <h3>Current Supply</h3>
+        <p>12.11 Million</p>
+      </div>
+      <div class="summary-card">
+        <h3>Market Cap</h3>
+        <p>$6.43 Million</p>
+      </div>
+      <div class="summary-card">
+        <h3>Current Price</h3>
+        <p>$0.53</p>
+      </div>
+      <div class="summary-card">
+        <h3>Conversion Rate</h3>
+        <p>1 CORE = 0.9201 dualCORE</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="section">
+    <h2>Token Performance Overview</h2>
+    
+    <div class="chart-container">
+      <h3>Price Performance</h3>
+      <div class="chart-placeholder">
+        <div class="placeholder-overlay">
+          <h4>Price Chart</h4>
+          <img src="https://res.cloudinary.com/ebrahimyousefi/image/upload/v1743678783/price_x7kuwn.png"/>
+        </div>
+      </div>
+      <p>The price chart shows significant fluctuation over the Jan-Apr 2025 period, with values ranging from approximately $0.20 to as high as $1.20. The current price of $0.53 indicates a moderate recovery from previous lows, showing stabilization in the market.</p>
+    </div>
+    
+    <div class="two-charts">
+      <div class="chart-container">
+        <h3>Conversion Rate Analysis</h3>
+        <div class="chart-placeholder">
+          <div class="placeholder-overlay">
+            <h4>Conversion Rate Chart</h4>
+            <img src="https://res.cloudinary.com/ebrahimyousefi/image/upload/v1743679054/cr_xgvczm.png"/>
+          </div>
+        </div>
+        <p>The conversion rate between CORE and dualCORE has fluctuated between 0.98 and 1.10 over the observed period. The current rate of 0.9201 indicates that dualCORE is trading at a slight discount to CORE, potentially offering an entry opportunity for investors.</p>
+      </div>
+      
+      <div class="chart-container">
+        <h3>Supply Growth</h3>
+        <div class="chart-placeholder">
+          <div class="placeholder-overlay">
+            <h4>Supply Growth Chart</h4>
+            <img src="https://res.cloudinary.com/ebrahimyousefi/image/upload/v1743679134/sup_arrpdx.png"/>
+          </div>
+        </div>
+        <p>The supply of dualCORE has grown steadily from initial launch to the current 12.11 million tokens, with consistent growth throughout Q1 2025. This pattern demonstrates sustained user adoption and trust in the platform's dual-staking model.</p>
+      </div>
+    </div>
+    
+    <div class="chart-container">
+      <h3>Market Cap Trend</h3>
+      <div class="chart-placeholder">
+        <div class="placeholder-overlay">
+          <h4>Market Cap Chart</h4>
+          <img src="https://res.cloudinary.com/ebrahimyousefi/image/upload/v1743679215/mc_kal3yu.png"/>
+        </div>
+      </div>
+      <p>The market cap has shown significant growth over the tracked period, reaching $6.43 million in early April 2025. The chart shows notable volatility with a peak of nearly $8 million in February, followed by consolidation in the $4-6 million range in recent months.</p>
+    </div>
+  </div>
+  
+  <div class="section">
+    <h2>Token Economics Analysis</h2>
+    
+    <div class="chart-container">
+      <h3>Mint and Redeem Activity</h3>
+      <div class="chart-placeholder">
+        <div class="placeholder-overlay">
+          <h4>Daily Mint/Redeem Chart</h4>
+          <img src="https://res.cloudinary.com/ebrahimyousefi/image/upload/v1743679290/dmrc_zduiw2.png"/>
+        </div>
+      </div>
+      <p>Mint and redeem activity shows high volatility in user behavior. The chart reveals multiple instances where daily mints have exceeded 1 million tokens, with some spikes approaching 3 million tokens in a single day. Redemptions have generally been lower, suggesting continued user confidence in the protocol.</p>
+    </div>
+    
+    <div class="chart-container">
+      <h3>Total Mint vs Redeem Trend</h3>
+      <div class="chart-placeholder">
+        <div class="placeholder-overlay">
+          <h4>Cumulative Mint/Redeem Chart</h4>
+          <img src="https://res.cloudinary.com/ebrahimyousefi/image/upload/v1743679390/tmrc_tfbobi.png"/>
+        </div>
+      </div>
+      <p>The cumulative data shows total mints significantly exceeding redemptions, with approximately 20 million tokens minted versus 5-7 million redeemed over the observed period. This persistent positive balance confirms user preference for holding the token rather than exiting positions.</p>
+    </div>
+    
+    <div class="highlight">
+      <h3>Key Insight</h3>
+      <p>The consistently higher mint-to-redeem ratio suggests users are actively participating in the dual-staking ecosystem and choosing to hold their positions rather than exit, demonstrating confidence in the protocol's value proposition and expected future rewards.</p>
+    </div>
+  </div>
+  
+  <div class="section">
+    <h2>User Activity and Holder Analysis</h2>
+    
+    <table>
+      <tr>
+        <th>Metric</th>
+        <th>Value</th>
+        <th>Significance</th>
+      </tr>
+      <tr>
+        <td>Number of Holders</td>
+        <td>2,970</td>
+        <td>Growing user base indicates expanding adoption</td>
+      </tr>
+      <tr>
+        <td>Total Transfers</td>
+        <td>11,470</td>
+        <td>Active trading and usage of the token</td>
+      </tr>
+      <tr>
+        <td>Transfer Volume</td>
+        <td>30.99 Million</td>
+        <td>High liquidity and circulation</td>
+      </tr>
+      <tr>
+        <td>TVL on DeFi Platforms</td>
+        <td>$1.30 Million</td>
+        <td>Strong integration with broader DeFi ecosystem</td>
+      </tr>
+      <tr>
+        <td>Swaps Volume</td>
+        <td>$151,690</td>
+        <td>Healthy trading activity on DEXs</td>
+      </tr>
+    </table>
+    
+    <div class="two-charts">
+      <div class="chart-container">
+        <h3>Top Holder Distribution</h3>
+        <div class="chart-placeholder">
+          <div class="placeholder-overlay">
+            <h4>Holder Distribution Chart</h4>
+            <img src="https://res.cloudinary.com/ebrahimyousefi/image/upload/v1743679601/tholdr_e0crab.png"/>
+          </div>
+        </div>
+        <p>Analysis of the top 10 holders reveals:</p>
+        <ul>
+          <li>The top two holders each control approximately 1.85 million tokens (about 15.3% each)</li>
+          <li>The third largest holder controls 1.72 million tokens (14.2%)</li>
+          <li>The top 3 holders collectively control 5.42 million tokens (44.8% of supply)</li>
+          <li>Addresses 4-10 hold between 55,260 and 707,890 tokens each</li>
+        </ul>
+      </div>
+      
+      <div class="chart-container">
+        <h3>Transfer Activity Trend</h3>
+        <div class="chart-placeholder">
+          <div class="placeholder-overlay">
+            <h4>Transfer Activity Chart</h4>
+            <img src="https://res.cloudinary.com/ebrahimyousefi/image/upload/v1743679669/transder_qdyhsx.png"/>
+          </div>
+        </div>
+        <p>Transfer activity shows cyclical patterns with periods of high and low activity. The dashboard reveals transfer volume spikes of up to 6 million tokens on peak days, with daily transfer counts ranging from under 100 to over 800 transfers during high-activity periods.</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="section">
+    <h2>DeFi Ecosystem Integration</h2>
+    
+    <div class="chart-container">
+      <h3>TVL Composition</h3>
+      <div class="chart-placeholder">
+        <div class="placeholder-overlay">
+          <h4>TVL Breakdown Chart</h4>
+          <img src="https://res.cloudinary.com/ebrahimyousefi/image/upload/v1743679739/tvll_sde8xa.png"/>
+        </div>
+      </div>
+      <p>The Total Value Locked (TVL) of $1.30 million is distributed across lending platforms and DEXs. The pie chart shows lending platforms dominating the TVL distribution, indicating users are primarily leveraging dualCORE for yield generation rather than trading speculation.</p>
+    </div>
+    
+    <h3>DEX Activity Metrics</h3>
+    <div class="summary-grid">
+      <div class="summary-card">
+        <h3>TVL on DEXs</h3>
+        <p>$380.73K</p>
+      </div>
+      <div class="summary-card">
+        <h3>Swaps Volume</h3>
+        <p>$151.69K</p>
+      </div>
+      <div class="summary-card">
+        <h3>Number of Swaps</h3>
+        <p>786</p>
+      </div>
+      <div class="summary-card">
+        <h3>Number of Swappers</h3>
+        <p>133</p>
+      </div>
+      <div class="summary-card">
+        <h3>Last 1D Swaps Volume</h3>
+        <p>$477.18</p>
+        <div class="change negative">🔴 -96.54%</div>
+      </div>
+    </div>
+    
+    <div class="chart-container">
+      <h3>Swaps Volume Trend</h3>
+      <div class="chart-placeholder">
+        <div class="placeholder-overlay">
+          <h4>DEX Volume Chart</h4>
+          <img src="https://res.cloudinary.com/ebrahimyousefi/image/upload/v1743679822/swapVol_peh9sz.png"/>
+        </div>
+      </div>
+      <p>Swap volume shows variable activity with notable spikes reaching up to $32,000 in daily volume during March. The total cumulative volume has reached $151,690, indicating consistent trading interest despite recent decline in daily volumes.</p>
+    </div>
+    
+    <div class="chart-container">
+      <h3>Swapper Activity Analysis</h3>
+      <div class="chart-placeholder">
+        <div class="placeholder-overlay">
+          <h4>Swapper Activity Chart</h4>
+          <img src="https://res.cloudinary.com/ebrahimyousefi/image/upload/v1743679888/nsw_hizwwv.png"/>
+        </div>
+      </div>
+      <p>Daily swaps have ranged from near zero to over 300 on peak days. The number of active daily swappers typically ranges from 0-30 users, with peak activity in mid-March followed by a decline in activity through early April.</p>
+    </div>
+  </div>
+  
+  <div class="section">
+    <h2>Lending Market Analysis</h2>
+    
+    <h3>dualCORE Lending Markets</h3>
+    <p>The primary lending platform for dualCORE is Sumer.Money, which shows:</p>
+    <ul>
+      <li>Total Value Locked (TVL): $915.57K (🟢 +1.63% 1D change)</li>
+      <li>Total Supplied: 1.73M dualCORE ($917.62K) (🟢 +1.65% 1D change)</li>
+      <li>Total Borrows: 3.87K dualCORE ($2.05K)</li>
+      <li>User Metrics: 191 suppliers, 5 borrowers</li>
+      <li>Average Supply per User: 9,046 dualCORE ($4.8K)</li>
+      <li>Median Supply per User: 95.17 dualCORE ($50.54)</li>
+      <li>Average Borrow per User: 773.59 dualCORE ($410.84)</li>
+      <li>Median Borrow per User: 227 dualCORE ($120.56)</li>
+    </ul>
+    
+    <div class="two-charts">
+      <div class="chart-container">
+        <h3>Market Size Growth</h3>
+        <div class="chart-placeholder">
+          <div class="placeholder-overlay">
+            <h4>Lending Market Size Chart</h4>
+            <img src="https://res.cloudinary.com/ebrahimyousefi/image/upload/v1743680000/msize_f9hlbb.png"/>
+          </div>
+        </div>
+        <p>The lending market has grown steadily since early March 2025, reaching approximately $1.25 million at its peak in early April. The chart shows consistent upward trajectory, indicating growing confidence in using dualCORE within lending markets.</p>
+      </div>
+      
+      <div class="chart-container">
+        <h3>Borrowing Activity</h3>
+        <div class="chart-placeholder">
+          <div class="placeholder-overlay">
+            <h4>Lending Activity Chart</h4>
+            <img src="https://res.cloudinary.com/ebrahimyousefi/image/upload/v1743679999/borro_qa96fj.png"/>
+          </div>
+        </div>
+        <p>Borrowing activity remains relatively low compared to supply, with daily borrow amounts generally under $10,000. There have been a few instances of negative borrow values, likely indicating repayments exceeding new borrows on those days.</p>
+      </div>
+    </div>
+    
+    <div class="highlight">
+      <h3>Key Lending Insight</h3>
+      <p>The high supply-to-borrow ratio (over 400:1) indicates dualCORE is primarily being used as a yield-bearing asset rather than collateral for borrowing. This suggests users trust the underlying value and yield generation capabilities of the token, but may indicate untapped potential for more advanced DeFi strategies.</p>
+    </div>
+  </div>
+  
+  <div class="section">
+    <h2>Conclusion and Outlook</h2>
+    
+    <div class="conclusion">
+      <h3>Strengths</h3>
+      <ul>
+        <li>Solid token metrics with current supply of 12.11M tokens and market cap of $6.43M</li>
+        <li>Growing user base with 2,970 holders and 11,470 transfers</li>
+        <li>Positive mint-to-redeem ratio suggests user confidence in the protocol</li>
+        <li>Growing TVL across lending platforms ($915.57K) demonstrates utility beyond simple trading</li>
+        <li>Significant DEX integration with $380.73K TVL and 786 swaps executed by 133 unique traders</li>
+      </ul>
+      
+      <h3>Areas for Monitoring</h3>
+      <ul>
+        <li>Concentration of holdings among top 3 addresses (44.8% of supply) presents centralization risk</li>
+        <li>Recent decline in swap volume (-96.54% in last 24h) may indicate reduced trading interest</li>
+        <li>Low borrowing activity relative to supply may indicate limited use of advanced DeFi strategies</li>
+        <li>Price volatility over the tracked period suggests potential for significant market movements</li>
+      </ul>
+      
+      <h3>Future Outlook</h3>
+      <p>dualCORE shows strong fundamentals as a liquid dual-staking solution on Core chain, with healthy growth metrics across supply, holders, and DeFi integration. While recent trading activity has slowed, the lending market continues to grow, suggesting users find value in the yield-bearing aspects of the token.</p>
+      
+      <p>The stable conversion rate (currently 0.9201) provides a clear value proposition for CORE holders looking to optimize their staking returns while maintaining liquidity. If the protocol continues to deliver competitive yields and expands its DeFi integrations, dualCORE could strengthen its position as a key liquid staking solution in the Core ecosystem.</p>
+    </div>
+  </div>
+  
+  <div class="disclaimer">
+    <p><strong>Disclaimer:</strong> This analysis is based on historical data from Flipside Crypto dashboard and should not be considered financial advice. All investment decisions should be made based on your own research and risk tolerance. Data accuracy depends on the source platform and may not reflect real-time conditions.</p>
+  </div>
+
+  <script>
+    document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  </script>
+</body>
+</html>
